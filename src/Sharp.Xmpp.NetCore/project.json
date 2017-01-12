@@ -3,10 +3,8 @@
 
   "dependencies": {
     "DnDnsCore": "1.0.0-*",
-    "NETStandard.Library": "1.6.0",
     "System.Collections.Specialized": "4.0.1",
-    "System.Net.NameResolution": "4.0.0",
-    "System.Net.Requests": "4.0.11",
+    "System.Net.NameResolution": "4.0.0",    
     "System.Net.Security": "4.0.0",
     "System.Runtime.Serialization.Primitives": "4.1.1",
     "System.Xml.XmlDocument": "4.0.1"
@@ -14,7 +12,16 @@
 
   "frameworks": {
     "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Net.Requests": "4.0.11"
+      },
       "imports": "dnxcore50"
+    },
+    "net461": {
+      "dependencies": {
+        "System.Xml.Linq": "3.5.21022.801"
+      }
     }
   }
 }

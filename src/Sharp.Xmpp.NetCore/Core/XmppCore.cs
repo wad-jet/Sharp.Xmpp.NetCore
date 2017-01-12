@@ -23,6 +23,8 @@ namespace Sharp.Xmpp.Core
     /// <remarks>For implementation details, refer to RFC 3920.</remarks>
     public class XmppCore : IDisposable
     {
+        private List<Task> listenerAndDispatcherTasks;
+
         /// <summary>
         /// The DNS SRV name records
         /// </summary>
@@ -135,7 +137,7 @@ namespace Sharp.Xmpp.Core
         /// <summary>
         /// A cancellation token source for cancelling the dispatcher, if neccessary.
         /// </summary>
-        private CancellationTokenSource cancelDispatch = new CancellationTokenSource();
+        private CancellationTokenSource cancelDispatch = new CancellationTokenSource();        
 
         /// <summary>
         /// The hostname of the XMPP server to connect to.
@@ -459,8 +461,10 @@ namespace Sharp.Xmpp.Core
                     TaskContinuationOptions.None,
                     TaskScheduler.Default);
 
-                longRunningFactory.StartNew(ReadXmlStream, TaskCreationOptions.LongRunning);
-                longRunningFactory.StartNew(DispatchEvents, TaskCreationOptions.LongRunning);
+                listenerAndDispatcherTasks = new List<Task>{
+                    longRunningFactory.StartNew(ReadXmlStream, TaskCreationOptions.LongRunning),
+                    longRunningFactory.StartNew(DispatchEvents, TaskCreationOptions.LongRunning)
+                };
             }
             catch (XmlException e)
             {

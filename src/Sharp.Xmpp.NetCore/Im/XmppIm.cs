@@ -500,6 +500,13 @@ namespace Sharp.Xmpp.Im
             await core.SendMessage(message);
         }
 
+        public async Task SendMessage(string message)
+        {
+            AssertValid();
+            message.ThrowIfNull("message");
+            await core.SendMessage(message);
+        }
+
         /// <summary>
         /// Sends a request to subscribe to the presence of the contact with the
         /// specified JID.

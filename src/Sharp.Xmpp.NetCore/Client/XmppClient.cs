@@ -742,6 +742,14 @@ namespace Sharp.Xmpp.Client
             await im.SendMessage(message);
         }
 
+
+        public async Task SendMessage(string message)
+        {
+            AssertValid();
+            message.ThrowIfNull("message");
+            await im.SendMessage(message);
+        }
+
         /// <summary>
         /// Sets the availability status.
         /// </summary>

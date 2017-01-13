@@ -552,6 +552,13 @@ namespace Sharp.Xmpp.Core
             await Send(message);
         }
 
+        public async Task SendMessage(string message)
+        {
+            AssertValid();
+            message.ThrowIfNull("message");
+            await Send(message);
+        }
+
         /// <summary>
         /// Sends a Presence stanza with the specified attributes and content to the
         /// server.
